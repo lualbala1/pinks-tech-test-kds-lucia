@@ -11,6 +11,7 @@ import {
 export type OrdersContextProps = {
   orders: Array<Order>;
   pickup: (order: Order) => void;
+  moveNextState: (order: Order) => void;
 };
 
 export const OrdersContext = createContext<OrdersContextProps>(
@@ -33,6 +34,31 @@ export function OrdersProvider(props: OrdersProviderProps) {
     });
   }, []);
 
+  const moveNextState = (order: Order) => {
+    console.log('entra aqui', order);
+          setOrders((prev) => {
+      const index = prev.findIndex((o) => o.id === order.id);
+      if (index === -1) return prev;
+      const newOrders = [...prev];
+      const newOrder = { ...order };
+      switch (order.state) {
+        case "PENDING":
+          newOrder.state = "IN_PROGRESS";
+          break;
+        case "IN_PROGRESS":
+          newOrder.state = "READY";
+          break;
+        case "READY":
+          newOrder.state = "DELIVERED";
+          break;
+        default:
+          return prev;
+      }
+      newOrders[index] = newOrder;
+      return newOrders;
+    });
+  };
+
   const pickup = (order: Order) => {
     alert(
       "necesitamos eliminar del kanban a la orden recogida! Rapido! antes que nuestra gente de tienda se confunda!"
@@ -42,6 +68,7 @@ export function OrdersProvider(props: OrdersProviderProps) {
   const context = {
     orders,
     pickup,
+    moveNextState
   };
 
   return (

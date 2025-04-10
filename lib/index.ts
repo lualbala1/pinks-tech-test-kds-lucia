@@ -17,12 +17,14 @@ export class OrderOrchestrator {
         id: getRandomId(),
         state: "PENDING",
         items: [],
+        estimatedtime: getRandomInterval(5, 15),
+        date: new Date(),
       });
       this.maxOrders--;
       if (this.maxOrders <= 0) {
         clearInterval(this.interval);
       }
-    }, 2000);
+    }, 8000); // Increased interval to 5000ms (5 seconds) for slower order creation
     return this.eventEmitter;
   }
 }

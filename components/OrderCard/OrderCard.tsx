@@ -8,25 +8,23 @@ export type OrderProps = {
 };
 
 export default function OrderCard(props: OrderProps) {
-  console.log("order", props.order.id, props.order.state);
+  console.log("order", props.order.items);
   const { moveNextState } = useOrders();
   const renderButtonOptions = (state: string) => {
     switch (state) {
       case ORDER_STATE_PENDING:
         return (
-          <div className={s["pk-order-card__buttons"]}>
-            <button
-              className={s["pk-button"]}
-              onClick={() => moveNextState(props.order)}
-            >
-              Comenzar
-            </button>
-          </div>
+          <button
+            className={`${s["pk-order-card__buttons"]} ${s["pending"]}`}
+            onClick={() => moveNextState(props.order)}
+          >
+            Comenzar
+          </button>
         );
       case ORDER_STATE_IN_PROGRESS:
         return (
-          <div className={s["pk-order-card__buttons"]}>
-            <button className={s["pk-button"]}>!</button>
+          <div className={`${s["pk-order-card__buttons"]} ${s["pending"]}`}>
+            <button className={s["pk-card__buttons"]}>!</button>
             <button
               className={s["pk-button"]}
               onClick={() => moveNextState(props.order)}
@@ -48,7 +46,9 @@ export default function OrderCard(props: OrderProps) {
         <p>{props.order.items.length} items</p>
         <p>{props.order.estimatedtime} min</p>
       </div>
-      {renderButtonOptions(props.order.state)}
+      <div className={s["pk-order-card__buttons"]}>
+        {renderButtonOptions(props.order.state)}
+      </div>
     </div>
   );
 }

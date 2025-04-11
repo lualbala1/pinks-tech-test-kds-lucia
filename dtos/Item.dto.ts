@@ -1,9 +1,12 @@
-export type Item = {
+import { Ingredient } from "./Ingredients.dto";
+
+export interface Item {
   id: string;
   name: string;
-  image: string;
+  image?: string;
   price: {
     currency: string;
     amount: number;
   };
-};
+  ingredients?: Ingredient[];
+}

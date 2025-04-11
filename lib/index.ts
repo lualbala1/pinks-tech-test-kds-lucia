@@ -2,7 +2,7 @@ import { Order } from "@/dtos/Order.dto";
 import { EventEmitter } from "events";
 import { getRandomId, getRandomInterval } from "./utils";
 import { Item } from "@/dtos/Item.dto";
-import { mockItems } from "@/mocks/items";
+import { mockBaseItems } from "@/mocks/items";
 
 export class OrderOrchestrator {
   private interval: NodeJS.Timeout | undefined;
@@ -19,10 +19,6 @@ export class OrderOrchestrator {
         const count = getRandomInterval(1, items.length);
         return Array.from({ length: count }, () => {
           const item = items[Math.floor(Math.random() * items.length)];
-          if (item.id === "1") {
-            const ingredientCount = getRandomInterval(1, mockBurguerIngredients.length);
-            item.ingredients = Array.from({ length: ingredientCount }, () => mockBurguerIngredients[Math.floor(Math.random() * mockIngredients.length)]);
-          }
           return item;
         });
       };
@@ -30,7 +26,7 @@ export class OrderOrchestrator {
       this.emit({
         id: getRandomId(),
         state: "PENDING",
-        items: getRandomItems(mockItems),
+        items: getRandomItems(mockBaseItems),
         estimatedtime: getRandomInterval(5, 15),
         date: new Date(),
       });

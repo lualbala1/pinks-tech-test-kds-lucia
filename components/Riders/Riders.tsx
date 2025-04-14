@@ -17,8 +17,7 @@ export default function Riders() {
               <div>hola</div>
             ) : (
               <Rider
-                orderWanted={rider.orderWanted}
-                orderReady={rider.orderReady}
+                riderInfo={rider}
                 setShowConfirmation={setShowConfirmation}
               />
             )}

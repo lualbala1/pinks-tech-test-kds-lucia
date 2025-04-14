@@ -1,3 +1,4 @@
+import { ORDER_STATE_DELIVERED } from "@/components/constants";
 import { Order } from "@/dtos/Order.dto";
 import { OrderOrchestrator } from "@/lib";
 import {
@@ -10,7 +11,7 @@ import {
 
 export type OrdersContextProps = {
   orders: Array<Order>;
-  pickup: (order: Order) => void;
+  pickup: (orderId: string) => void;
   moveNextState: (order: Order) => void;
 };
 
@@ -58,10 +59,18 @@ export function OrdersProvider(props: OrdersProviderProps) {
     });
   };
 
-  const pickup = (order: Order) => {
-    alert(
-      "necesitamos eliminar del kanban a la orden recogida! Rapido! antes que nuestra gente de tienda se confunda!"
-    );
+  const pickup = (orderId: string) => {
+    console.log("pickup", orderId);
+    setOrders((prev) => {
+      const newOrders = [...prev];
+      const index = newOrders.findIndex((o) => o.id === orderId);
+      if (index === -1) return newOrders;
+      newOrders[index].state = ORDER_STATE_DELIVERED;
+      return newOrders;
+    });
+    setTimeout(() => {
+      setOrders((prev) => prev.filter((o) => o.id !== orderId));
+    }, 2000);
   };
 
   const context = {

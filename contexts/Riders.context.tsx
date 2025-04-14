@@ -55,15 +55,21 @@ export function RidersProvider(props: RidersProviderProps) {
   useEffect(() => {
     // Update the orderReady property for each rider when orders change
     setRiders((prevRiders) =>
-      prevRiders.map((rider) => {
+      prevRiders
+      .map((rider) => {
         const matchingOrder = orders.find(
-          (o) => o.id === rider.orderWanted
+        (o) => o.id === rider.orderWanted
         );
+        if (!matchingOrder) {
+        // If the order has been deleted, remove the rider
+        return null;
+        }
         return {
-          ...rider,
-          orderReady: matchingOrder?.state === ORDER_STATE_READY,
+        ...rider,
+        orderReady: matchingOrder.state === ORDER_STATE_READY,
         };
       })
+      .filter((rider) => rider !== null) // Remove null entries
     );
   }, [orders]);
 

@@ -1,34 +1,42 @@
 import { useState } from "react";
 import s from "./Rider.module.scss";
+import type { Rider } from "@/dtos/Rider.dto";
 
 type RiderProps = {
-  orderWanted: string;
-  orderReady: boolean;
+  riderInfo: Rider;
   setShowConfirmation: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export default function Rider(props: RiderProps) {
-  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const [showConfirmationPickUp, setShowConfirmationPickUp] =
+    useState<boolean>(false);
   return (
     <div
-      onClick={() => setShowConfirmation(true)}
+      onClick={() => setShowConfirmationPickUp(true)}
       className={s["pk-rider__container"]}
     >
-      {showConfirmation ? (
+      {showConfirmationPickUp ? (
         <div className={s["pk-rider__confirmation"]}>
           <p>¿Quieres confirmar la orden?</p>
-          <button onClick={() => props.setShowConfirmation(false)}>
+          <button
+            onClick={() => {
+              setShowConfirmationPickUp(false);
+              props.riderInfo.pickup(props.riderInfo.orderWanted);
+            }}
+          >
             Confirmar
           </button>
-          <button onClick={() => setShowConfirmation(false)}>Cancelar</button>
+          <button onClick={() => setShowConfirmationPickUp(false)}>
+            Cancelar
+          </button>
         </div>
       ) : (
         <>
           <div className={s["pk-rider__order"]}>
-            <b>{props.orderWanted} !!</b>
+            <b>{props.riderInfo.orderWanted} !!</b>
           </div>
           <svg
             className={
-              props.orderReady
+              props.riderInfo.orderReady
                 ? `${s["pk-rider"]} ${s["notification"]}`
                 : s["pk-rider"]
             }

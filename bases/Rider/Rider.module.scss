@@ -6,6 +6,17 @@
     transform: translateX(0px);
   }
 }
+@keyframes riderPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(59, 130, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
 @keyframes appear {
   0% {
     opacity: 0;
@@ -16,6 +27,8 @@
     transform: translateY(0px);
   }
 }
+
+
 .pk-rider {
   height: 100px;
   &__container {
@@ -38,5 +51,11 @@
     padding: 10px;
     animation: appear 300ms 1000ms forwards;
   }
-  animation: animation 1000ms;
+  animation: animation 1000ms, 
+
+
+  //riderPulse 1500ms infinite;
+}
+.notification {
+  animation: riderPulse 1500ms infinite;
 }

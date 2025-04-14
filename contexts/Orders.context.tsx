@@ -35,8 +35,7 @@ export function OrdersProvider(props: OrdersProviderProps) {
   }, []);
 
   const moveNextState = (order: Order) => {
-    console.log('entra aqui', order);
-          setOrders((prev) => {
+    setOrders((prev) => {
       const index = prev.findIndex((o) => o.id === order.id);
       if (index === -1) return prev;
       const newOrders = [...prev];
@@ -68,7 +67,7 @@ export function OrdersProvider(props: OrdersProviderProps) {
   const context = {
     orders,
     pickup,
-    moveNextState
+    moveNextState,
   };
 
   return (

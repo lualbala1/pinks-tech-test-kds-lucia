@@ -1,17 +1,22 @@
 import { useOrders } from "@/contexts/Orders.context";
 import s from "./OrderCard.module.scss";
 import { Order } from "@/dtos/Order.dto";
-import { emojiMap, ORDER_STATE_IN_PROGRESS, ORDER_STATE_PENDING } from "../constants";
+import {
+  emojiMap,
+  ORDER_STATE_IN_PROGRESS,
+  ORDER_STATE_PENDING,
+  ORDER_STATE_READY,
+} from "../constants";
 import { useState } from "react";
 import { Item } from "@/dtos/Item.dto";
 import { IoReturnDownForward } from "react-icons/io5";
-
+import { FaRegCheckCircle } from "react-icons/fa";
+import { FaRegQuestionCircle } from "react-icons/fa";
 export type OrderProps = {
   order: Order;
 };
 
 export default function OrderCard(props: OrderProps) {
-  console.log("order", props.order.items);
   const { moveNextState } = useOrders();
   const [showOrderDetails, setShowOrderDetails] = useState<boolean>(false);
   const renderButtonOptions = (state: string) => {
@@ -27,14 +32,23 @@ export default function OrderCard(props: OrderProps) {
         );
       case ORDER_STATE_IN_PROGRESS:
         return (
-          <div className={`${s["pk-order-card__buttons"]} ${s["pending"]}`}>
-            <button className={s["pk-card__buttons"]}>!</button>
+          <div className={`${s["pk-order-card__buttons"]} ${s["in-progress"]}`}>
+            <button className={s["pk-card__buttons"]}>
+              {<FaRegQuestionCircle />}
+            </button>
             <button
-              className={s["pk-button"]}
+              style={{ fontSize: "1rem" }}
               onClick={() => moveNextState(props.order)}
             >
-              Listo
+              Listo {<FaRegCheckCircle />}
             </button>
+          </div>
+        );
+      case ORDER_STATE_READY:
+        return (
+          <div className={`${s["pk-order-card__buttons"]} ${s["ready"]}`}>
+            Noticando
+            <span className={s["pk-order-card__notification"]} />
           </div>
         );
       default:
@@ -81,16 +95,19 @@ export default function OrderCard(props: OrderProps) {
         <div className={s["pk-order-card__details"]}>
           <h3>Detalles</h3>
           <ul>
-            {props.order.items.sort((a,b)=> Number(a.id) - Number(b.id)).map((item, index) => (
-              <>
-              <li key={index}>
-                <strong>{emojiMap[item.type]} {item.name}</strong>
-                {renderSpecificDetails(item)}
-                
-              </li>
-              <hr />
-              </>
-            ))}
+            {props.order.items
+              .sort((a, b) => Number(a.id) - Number(b.id))
+              .map((item, index) => (
+                <>
+                  <li key={index}>
+                    <strong>
+                      {emojiMap[item.type]} {item.name}
+                    </strong>
+                    {renderSpecificDetails(item)}
+                  </li>
+                  <hr />
+                </>
+              ))}
           </ul>
         </div>
       )}

@@ -74,5 +74,17 @@
     & > h3 {
       font-weight: 600;
     }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      
+      &__infoText {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+      }
+    }
   }
 }

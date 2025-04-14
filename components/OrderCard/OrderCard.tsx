@@ -9,9 +9,10 @@ import {
 } from "../constants";
 import { useState } from "react";
 import { Item } from "@/dtos/Item.dto";
-import { IoReturnDownForward } from "react-icons/io5";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaRegQuestionCircle } from "react-icons/fa";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+
 export type OrderProps = {
   order: Order;
 };
@@ -68,12 +69,13 @@ export default function OrderCard(props: OrderProps) {
       case "drink":
         return <p>Variante: {item.config.variant}</p>;
       case "burguer":
-        if (
-          item.config.removeIngredients &&
-          item.config.removeIngredients.length > 0
-        ) {
-          return <p> Sin: {item.config.removeIngredients?.join(",")}</p>;
-        }
+        return item.config.removeIngredients &&
+          item.config.removeIngredients.length > 0 ? (
+          <p className={s["pk-order-card__details__list__infoText"]}>
+            <HiOutlineExclamationCircle /> Sin:{" "}
+            {item.config.removeIngredients?.join(", ")}
+          </p>
+        ) : null;
     }
   };
   return (
@@ -94,7 +96,7 @@ export default function OrderCard(props: OrderProps) {
       {showOrderDetails && (
         <div className={s["pk-order-card__details"]}>
           <h3>Detalles</h3>
-          <ul>
+          <ul className={s["pk-order-card__details__list"]}>
             {props.order.items
               .sort((a, b) => Number(a.id) - Number(b.id))
               .map((item, index) => (
@@ -105,7 +107,6 @@ export default function OrderCard(props: OrderProps) {
                     </strong>
                     {renderSpecificDetails(item)}
                   </li>
-                  <hr />
                 </>
               ))}
           </ul>

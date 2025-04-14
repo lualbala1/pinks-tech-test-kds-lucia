@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./Rider.module.scss";
 import type { Rider } from "@/dtos/Rider.dto";
 
@@ -9,9 +9,15 @@ type RiderProps = {
 export default function Rider(props: RiderProps) {
   const [showConfirmationPickUp, setShowConfirmationPickUp] =
     useState<boolean>(false);
+
+  useEffect(() => {
+    setShowConfirmationPickUp(false);
+  }, [props.riderInfo]);
   return (
     <div
-      onClick={() => setShowConfirmationPickUp(true)}
+      onClick={() =>
+        props.riderInfo.orderReady && setShowConfirmationPickUp(true)
+      }
       className={s["pk-rider__container"]}
     >
       {showConfirmationPickUp ? (

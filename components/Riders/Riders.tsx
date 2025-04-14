@@ -6,7 +6,6 @@ import { useState } from "react";
 export default function Riders() {
   const { riders } = useRiders();
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
-  console.log("confirmation", showConfirmation);
   return (
     <section className={s["pk-riders__container"]}>
       <div className={s["pk-riders"]}>

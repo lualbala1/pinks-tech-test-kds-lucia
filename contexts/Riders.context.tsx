@@ -71,6 +71,7 @@ export function RidersProvider(props: RidersProviderProps) {
       })
       .filter((rider) => rider !== null) // Remove null entries
     );
+    console.log("Riders updated:", riders);
   }, [orders]);
 
   const context = { riders };

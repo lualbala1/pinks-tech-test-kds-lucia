@@ -14,12 +14,13 @@ export default function Kanban() {
   };
   return (
     <section className={s["pk-kanban"]}>
-      <Column title="Pendiente" orders={filterOrders(ORDER_STATE_PENDING)} />
+      <Column title={`Pendiente`} orders={filterOrders(ORDER_STATE_PENDING)} state={ORDER_STATE_PENDING}/>
       <Column
         title="En preparación"
         orders={filterOrders(ORDER_STATE_IN_PROGRESS)}
+        state={ORDER_STATE_IN_PROGRESS}
       />
-      <Column title="Listo" orders={filterOrders(ORDER_STATE_READY)} />
+      <Column title="Listo" orders={filterOrders(ORDER_STATE_READY)} state={ORDER_STATE_READY} />
     </section>
   );
 }

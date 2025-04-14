@@ -5,7 +5,7 @@
   background-color: #fff;
   border: 1px solid $gray-1000;
   border-radius: 12px;
-  height: 120px;
+  height: auto;
   padding: 10px;
   cursor: pointer;
   &:hover {
@@ -16,10 +16,26 @@
   &__buttons {
     margin-top: 10px;
 
+
     &.pending {
       width: 100%;
-      height: 20px;
+      height: 30px;
       border-radius: 8px;
+      font-weight: 600;
+      background-color: $gray-900;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+
+    & > h3 {
+      font-weight: 600;
     }
   }
 }

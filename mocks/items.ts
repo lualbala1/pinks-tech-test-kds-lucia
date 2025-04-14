@@ -16,7 +16,7 @@ export const mockBaseItems: Item[] = [
   },
   {
     id: "2",
-    name: "Fries",
+    name: "Patatas fritas",
     price: {
       currency: "EUR",
       amount: 3.5,
@@ -28,7 +28,7 @@ export const mockBaseItems: Item[] = [
   },
   {
     id: "3",
-    name: "Dessert",
+    name: "Postre",
     price: {
       currency: "EUR",
       amount: 4.5,
@@ -40,19 +40,19 @@ export const mockBaseItems: Item[] = [
   },
   {
     id: "4",
-    name: "Drink",
+    name: "Bebida",
     price: {
       currency: "EUR",
       amount: 2.5,
     },
     type: "drink",
     config: {
-      variante: "agua",
+      variant: "agua",
     },
   },
   {
     id: "5",
-    name: "Sause",
+    name: "Salsa",
     price: {
       currency: "EUR",
       amount: 0.9,

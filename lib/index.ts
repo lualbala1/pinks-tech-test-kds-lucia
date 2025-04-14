@@ -1,7 +1,6 @@
 import { Order } from "@/dtos/Order.dto";
 import { EventEmitter } from "events";
-import { getRandomId, getRandomInterval } from "./utils";
-import { Item } from "@/dtos/Item.dto";
+import { getOrderItems, getRandomId, getRandomInterval } from "./utils";
 import { mockBaseItems } from "@/mocks/items";
 
 export class OrderOrchestrator {
@@ -15,18 +14,11 @@ export class OrderOrchestrator {
 
   public run() {
     this.interval = setInterval(() => {
-      const getRandomItems = (items: Item[]) => {
-        const count = getRandomInterval(1, items.length);
-        return Array.from({ length: count }, () => {
-          const item = items[Math.floor(Math.random() * items.length)];
-          return item;
-        });
-      };
 
       this.emit({
         id: getRandomId(),
         state: "PENDING",
-        items: getRandomItems(mockBaseItems),
+        items: getOrderItems(mockBaseItems),
         estimatedtime: getRandomInterval(5, 15),
         date: new Date(),
       });

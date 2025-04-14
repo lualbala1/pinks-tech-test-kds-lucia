@@ -41,7 +41,7 @@ function generateRandomOrderItems(item: Item) {
       return {
         ...item,
         config: {
-          variante: getRandomElementFromarray(drinkTypes),
+          variant: getRandomElementFromarray(drinkTypes),
         },
       };
 

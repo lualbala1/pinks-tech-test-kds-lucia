@@ -19,7 +19,7 @@ export interface Burguer extends BaseItem {
 export interface Drink extends BaseItem {
   type: "drink";
   config: {
-    variante: DrinkType;
+    variant: DrinkType;
   };
 }
 

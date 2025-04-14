@@ -1,0 +1,14 @@
+@import "/styles/variables.scss";
+
+.pk-store-selector {
+    width: 250px;
+    height: 40px;
+    border-radius: 12px;
+    font-weight: 600;
+    margin-right: 20px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $gray-900;
+    }
+}

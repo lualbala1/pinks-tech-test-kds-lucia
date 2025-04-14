@@ -2,7 +2,7 @@
 
 .pk-riders {
   width: 320px;
-  height: max-content;
+  height: 90vh;
   max-height: 90vh;
   overflow: auto;
   min-height: 170px;
@@ -15,8 +15,12 @@
   gap: 12px;
   background-color: $gray-900;
 
+  & > h3 {
+    padding: 10px;
+  }
+
   &__container {
-    padding: 20px;
+    padding-top: 20px;
   }
 
   &__notification {

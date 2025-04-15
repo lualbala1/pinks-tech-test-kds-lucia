@@ -1,26 +1,30 @@
 import s from "./Riders.module.scss";
 import Rider from "@/bases/Rider";
 import { useRiders } from "@/contexts/Riders.context";
-import { useState } from "react";
+import { useStore } from "@/contexts/Store.context";
+import { RiderDto } from "@/dtos/Rider.dto";
+import { mockStores } from "@/mocks/stores";
+import { useEffect, useState } from "react";
 
 export default function Riders() {
   const { riders } = useRiders();
-  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const { selectedStore } = useStore();
+  const [filteredRiders, setFilteredRiders] = useState<RiderDto[]>([]);
+  useEffect(() => {
+    setFilteredRiders(
+      riders.filter((rider) => {
+        const storeId = selectedStore?.id ?? mockStores[0].id;
+        return rider.storeId === storeId;
+      })
+    );
+  }, [riders, selectedStore]);
+
   return (
     <section className={s["pk-riders__container"]}>
       <div className={s["pk-riders"]}>
         <h3>Riders:</h3>
-        {riders.map((rider) => (
-          <>
-            {showConfirmation ? (
-              <div>hola</div>
-            ) : (
-              <Rider
-                riderInfo={rider}
-                setShowConfirmation={setShowConfirmation}
-              />
-            )}
-          </>
+        {filteredRiders.map((rider, index) => (
+          <Rider riderInfo={rider} key={index} />
         ))}
       </div>
     </section>

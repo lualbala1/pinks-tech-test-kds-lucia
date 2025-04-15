@@ -1,7 +1,7 @@
-import { Order } from "./Order.dto";
 
-export type Rider = {
+export type RiderDto = {
   orderWanted: string;
-  pickup: (order?: string) => void;
+  storeId: number;
   orderReady: boolean;
+  pickup: (order?: string) => void;
 };

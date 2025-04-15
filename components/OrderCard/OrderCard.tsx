@@ -7,7 +7,7 @@ import {
   ORDER_STATE_PENDING,
   ORDER_STATE_READY,
 } from "../constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Item } from "@/dtos/Item.dto";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaRegQuestionCircle } from "react-icons/fa";
@@ -20,6 +20,11 @@ export type OrderProps = {
 export default function OrderCard(props: OrderProps) {
   const { moveNextState } = useOrders();
   const [showOrderDetails, setShowOrderDetails] = useState<boolean>(false);
+  
+  useEffect(() => {
+    setShowOrderDetails(false);
+  }, [props.order]);
+
   const renderButtonOptions = (state: string) => {
     switch (state) {
       case ORDER_STATE_PENDING:
@@ -48,7 +53,7 @@ export default function OrderCard(props: OrderProps) {
       case ORDER_STATE_READY:
         return (
           <div className={`${s["pk-order-card__buttons"]} ${s["ready"]}`}>
-            Noticando
+            Notificando
             <span className={s["pk-order-card__notification"]} />
           </div>
         );
@@ -81,7 +86,7 @@ export default function OrderCard(props: OrderProps) {
   return (
     <div
       className={s["pk-order-card"]}
-      onClick={() => setShowOrderDetails(!showOrderDetails)}
+      onClick={() => setShowOrderDetails((prev) => !prev)}
     >
       <div className={s["pk-order-card__title"]}>
         <h3>Orden: {props.order.id}</h3>

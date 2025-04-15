@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import s from "./Rider.module.scss";
-import type { Rider } from "@/dtos/Rider.dto";
+import type { RiderDto } from "@/dtos/Rider.dto";
 
 type RiderProps = {
-  riderInfo: Rider;
-  setShowConfirmation: React.Dispatch<React.SetStateAction<boolean>>;
+  riderInfo: RiderDto;
 };
 export default function Rider(props: RiderProps) {
   const [showConfirmationPickUp, setShowConfirmationPickUp] =
@@ -13,27 +12,32 @@ export default function Rider(props: RiderProps) {
   useEffect(() => {
     setShowConfirmationPickUp(false);
   }, [props.riderInfo]);
+
   return (
     <div
       onClick={() =>
-        props.riderInfo.orderReady && setShowConfirmationPickUp(true)
+        props.riderInfo.orderReady &&
+        !showConfirmationPickUp &&
+        setShowConfirmationPickUp(true)
       }
       className={s["pk-rider__container"]}
     >
       {showConfirmationPickUp ? (
         <div className={s["pk-rider__confirmation"]}>
           <p>¿Quieres confirmar la orden?</p>
-          <button
-            onClick={() => {
-              setShowConfirmationPickUp(false);
-              props.riderInfo.pickup(props.riderInfo.orderWanted);
-            }}
-          >
-            Confirmar
-          </button>
-          <button onClick={() => setShowConfirmationPickUp(false)}>
-            Cancelar
-          </button>
+          <div className={s["pk-rider__modalButtons"]}>
+            <button onClick={() => setShowConfirmationPickUp(false)}>
+              Cancelar
+            </button>
+            <button
+              onClick={() => {
+                setShowConfirmationPickUp(false);
+                props.riderInfo.pickup(props.riderInfo.orderWanted);
+              }}
+            >
+              Confirmar
+            </button>
+          </div>
         </div>
       ) : (
         <>

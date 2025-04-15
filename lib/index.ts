@@ -21,13 +21,13 @@ export class OrderOrchestrator {
         items: getOrderItems(mockBaseItems),
         estimatedtime: getRandomInterval(5, 15),
         date: new Date(),
-        storeId: Math.floor(Math.random() * 6) + 1,
+        storeId: Math.floor(Math.random() * 4) + 1,
       });
       this.maxOrders--;
       if (this.maxOrders <= 0) {
         clearInterval(this.interval);
       }
-    }, 8000); // Increased interval to 5000ms (5 seconds) for slower order creation
+    }, 2000); // Increased interval to 5000ms (5 seconds) for slower order creation
     return this.eventEmitter;
   }
 }

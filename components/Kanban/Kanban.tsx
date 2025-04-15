@@ -16,9 +16,7 @@ export default function Kanban() {
     const storeId = selectedStore?.id ?? mockStores[0].id;
     return orders.filter((i) => i.state === state && i.storeId === storeId);
   };
-
-  console.log("selectedStore", selectedStore);
-  console.log("orders", orders.map((i) => (i.id, i.storeId)));
+  
   return (
     <section className={s["pk-kanban"]}>
       <Column title={`Pendiente`} orders={filterOrders(ORDER_STATE_PENDING)} state={ORDER_STATE_PENDING}/>

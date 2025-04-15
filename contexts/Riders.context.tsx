@@ -7,11 +7,11 @@ import {
 } from "react";
 import { useOrders } from "./Orders.context";
 import { getRandomInterval } from "@/lib/utils";
-import { Rider } from "@/dtos/Rider.dto";
+import { RiderDto } from "@/dtos/Rider.dto";
 import { ORDER_STATE_READY } from "@/components/constants";
 
 export type RidersContextProps = {
-  riders: Array<Rider>;
+  riders: Array<RiderDto>;
 };
 
 export const RidersContext = createContext<RidersContextProps>(
@@ -25,7 +25,7 @@ export type RidersProviderProps = {
 };
 
 export function RidersProvider(props: RidersProviderProps) {
-  const [riders, setRiders] = useState<Array<Rider>>([]);
+  const [riders, setRiders] = useState<Array<RiderDto>>([]);
   const [assignedOrders, setAssignedOrders] = useState<string[]>([]);
   const { orders, pickup } = useOrders();
 
@@ -43,6 +43,7 @@ export function RidersProvider(props: RidersProviderProps) {
             ...prev,
             {
               orderWanted: order.id,
+              storeId: order.storeId,
               pickup,
               orderReady: order.state === ORDER_STATE_READY,
             },
@@ -54,24 +55,24 @@ export function RidersProvider(props: RidersProviderProps) {
 
   useEffect(() => {
     // Update the orderReady property for each rider when orders change
-    setRiders((prevRiders) =>
-      prevRiders
-      .map((rider) => {
-        const matchingOrder = orders.find(
-        (o) => o.id === rider.orderWanted
-        );
-        if (!matchingOrder) {
-        // If the order has been deleted, remove the rider
-        return null;
-        }
-        return {
-        ...rider,
-        orderReady: matchingOrder.state === ORDER_STATE_READY,
-        };
-      })
-      .filter((rider) => rider !== null) // Remove null entries
+    setRiders(
+      (prevRiders) =>
+        prevRiders
+          .map((rider) => {
+            const matchingOrder = orders.find(
+              (o) => o.id === rider.orderWanted
+            );
+            if (!matchingOrder) {
+              // If the order has been deleted, remove the rider
+              return null;
+            }
+            return {
+              ...rider,
+              orderReady: matchingOrder.state === ORDER_STATE_READY,
+            };
+          })
+          .filter((rider) => rider !== null) // Remove null entries
     );
-    console.log("Riders updated:", riders);
   }, [orders]);
 
   const context = { riders };

@@ -6,12 +6,19 @@ import {
   ORDER_STATE_PENDING,
   ORDER_STATE_READY,
 } from "../constants";
+import { useStore } from "@/contexts/Store.context";
+import { mockStores } from "@/mocks/stores";
 
 export default function Kanban() {
   const { orders } = useOrders();
+  const { selectedStore } = useStore();
   const filterOrders = (state: string) => {
-    return orders.filter((i) => i.state === state);
+    const storeId = selectedStore?.id ?? mockStores[0].id;
+    return orders.filter((i) => i.state === state && i.storeId === storeId);
   };
+
+  console.log("selectedStore", selectedStore);
+  console.log("orders", orders.map((i) => (i.id, i.storeId)));
   return (
     <section className={s["pk-kanban"]}>
       <Column title={`Pendiente`} orders={filterOrders(ORDER_STATE_PENDING)} state={ORDER_STATE_PENDING}/>

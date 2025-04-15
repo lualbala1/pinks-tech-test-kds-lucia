@@ -7,4 +7,5 @@ export type Order = {
   items: Array<Item>;
   estimatedtime: number;
   date: Date;
+  storeId: number;
 };

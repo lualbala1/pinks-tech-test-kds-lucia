@@ -12,7 +12,7 @@ export type ColumnProps = {
 };
 
 export default function Column(props: ColumnProps) {
-  const getBackGrounColor = (state: string) => {
+  const getBackGroundColor = (state: string) => {
     switch (state) {
       case "PENDING":
         return `${s["pk-column"]} ${s["pending"]}`;
@@ -25,7 +25,7 @@ export default function Column(props: ColumnProps) {
     }
   };
   return (
-    <div className={getBackGrounColor(props.state)}>
+    <div className={getBackGroundColor(props.state)}>
       <div className={s["pk-column__title"]}>
         <h3>{props.title} </h3>
         <FaRegListAlt />

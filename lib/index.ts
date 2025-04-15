@@ -21,6 +21,7 @@ export class OrderOrchestrator {
         items: getOrderItems(mockBaseItems),
         estimatedtime: getRandomInterval(5, 15),
         date: new Date(),
+        storeId: Math.floor(Math.random() * 6) + 1,
       });
       this.maxOrders--;
       if (this.maxOrders <= 0) {

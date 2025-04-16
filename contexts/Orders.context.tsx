@@ -1,4 +1,4 @@
-import { ORDER_STATE_DELIVERED } from "@/components/constants";
+import { ORDER_STATE_DELIVERED, ORDER_STATE_IN_PROGRESS, ORDER_STATE_PENDING, ORDER_STATE_READY } from "@/components/constants";
 import { Order } from "@/dtos/Order.dto";
 import { OrderOrchestrator } from "@/lib";
 import {
@@ -43,14 +43,14 @@ export function OrdersProvider(props: OrdersProviderProps) {
       const newOrders = [...prev];
       const newOrder = { ...order };
       switch (order.state) {
-        case "PENDING":
-          newOrder.state = "IN_PROGRESS";
+        case ORDER_STATE_PENDING:
+          newOrder.state = ORDER_STATE_IN_PROGRESS;
           break;
-        case "IN_PROGRESS":
-          newOrder.state = "READY";
+        case ORDER_STATE_IN_PROGRESS:
+          newOrder.state = ORDER_STATE_READY;
           break;
-        case "READY":
-          newOrder.state = "DELIVERED";
+        case ORDER_STATE_READY:
+          newOrder.state = ORDER_STATE_DELIVERED;
           break;
         default:
           return prev;
@@ -66,13 +66,12 @@ export function OrdersProvider(props: OrdersProviderProps) {
       const index = newOrders.findIndex((o) => o.id === orderId);
       if (index === -1) return newOrders;
       const updatedOrder = { ...newOrders[index] };
-      updatedOrder.state = "DELIVERED";
+      updatedOrder.state = ORDER_STATE_DELIVERED;
       setDeliveredOrders((prevDelivered) => [...prevDelivered, updatedOrder]);
 
       newOrders.slice(index, 1);
       return newOrders;
     });
-    console.log('orders', orders );
 
     setTimeout(() => {
     setOrders((prev) => prev.filter((o) => o.id !== orderId));

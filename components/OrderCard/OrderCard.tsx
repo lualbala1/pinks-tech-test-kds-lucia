@@ -9,8 +9,6 @@ import {
 } from "../constants";
 import { useEffect, useState } from "react";
 import { Item } from "@/dtos/Item.dto";
-import { FaRegCheckCircle } from "react-icons/fa";
-import { FaRegQuestionCircle } from "react-icons/fa";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 export type OrderProps = {
@@ -42,7 +40,6 @@ export default function OrderCard(props: OrderProps) {
       case ORDER_STATE_IN_PROGRESS:
         return (
           <button
-            style={{ fontSize: "1rem" }}
             onClick={() => moveNextState(props.order)}
             className={s["pk-order-card__buttons"]}
           >
@@ -88,7 +85,7 @@ export default function OrderCard(props: OrderProps) {
       onClick={() => setShowOrderDetails((prev) => !prev)}
     >
       <div className={s["pk-order-card__title"]}>
-        <h3>Orden: {props.order.id}</h3>
+        <h3>{props.order.id}</h3>
       </div>
       <div className={s["pk-order-card__items"]}>
         <p>{props.order.items.length} items</p>

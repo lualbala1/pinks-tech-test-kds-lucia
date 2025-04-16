@@ -52,7 +52,7 @@
     top: -5px;
     right: 15px;
     opacity: 0;
-    border-radius: 10px 10px 10px 0px;
+    border-radius: $border-radius-ml $border-radius-ml $border-radius-ml 0px;
     background-color: #f9cc01;
     padding: 10px;
     animation: appear 300ms 1000ms forwards;
@@ -72,12 +72,10 @@
       width: 50%;
       height: 30px;
       margin: 0 5px;
-      border-radius: 5px;
+      border-radius: $border-radius-s;
     }
   }
   animation: animation 1000ms;
-
-  //riderPulse 1500ms infinite;
 }
 .notification {
   animation: riderPulse 1500ms infinite;

@@ -7,13 +7,13 @@
   overflow: auto;
   min-height: 170px;
   border: 1px solid $gray-800;
-  border-radius: 12px;
+  border-radius: $border-radius-l;
   padding: 8px;
   display: flex;
   flex-direction: column;
   grid-template-columns: 100%;
   justify-items: center;
-  gap: 12px;
+  gap: 14px;
   background-color: $gray-900;
 
   @media (max-width: 768px) {

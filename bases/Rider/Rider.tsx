@@ -24,8 +24,10 @@ export default function Rider(props: RiderProps) {
     >
       {showConfirmationPickUp ? (
         <div className={s["pk-rider__confirmation"]}>
-          <p>¿Quieres confirmar la recogida?</p>
-          <div className={s["pk-rider__modalButtons"]}>
+          <p className={s["pk-rider__confirmation__text"]}>
+            ¿Quieres confirmar la recogida?
+          </p>
+          <div className={s["pk-rider__confirmation__buttons"]}>
             <button onClick={() => setShowConfirmationPickUp(false)}>
               Cancelar
             </button>

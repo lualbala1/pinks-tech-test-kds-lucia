@@ -8,19 +8,20 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem } from "@mui/material";
 import { useStore } from "@/contexts/Store.context";
 
-const style = {
+export const modalStyle = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "2px solid white",
+  borderRadius: "10px",
   boxShadow: 24,
   p: 4,
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
+  overflow: "auto",
+  maxHeight: "80vh",
+  backgroundColor: "#e6e6e6",
 };
 export default function StoreSelector() {
   const [showStoreSelector, setShowStoreSelector] = useState<boolean>(false);
@@ -29,8 +30,8 @@ export default function StoreSelector() {
     const store = localStorage.getItem("selectedStore");
     return store ? JSON.parse(store) : mockStores[0];
   });*/
-const {selectedStore, setSelectedStore } = useStore();
-/*
+  const { selectedStore, setSelectedStore } = useStore();
+  /*
   useEffect(() => {
     localStorage.setItem("selectedStore", JSON.stringify(selectedStore));
   }, [selectedStore]);*/
@@ -48,7 +49,7 @@ const {selectedStore, setSelectedStore } = useStore();
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={modalStyle}>
           <h2>Selecciona una tienda</h2>
           <Select
             id="store-selector"

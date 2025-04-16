@@ -3,6 +3,7 @@ import s from "./OrdersLayout.module.scss";
 import Riders from "@/components/Riders";
 import Kanban from "@/components/Kanban";
 import StoreSelector from "@/components/StoreSelector";
+import OrderHistory from "@/components/OrderHistory";
 
 export default function OrdersLayout() {
   return (
@@ -12,7 +13,10 @@ export default function OrdersLayout() {
           <Logo size="S" />
           <span>KDS: Krazy Display Service</span>
         </div>
+        <div>
         <StoreSelector />
+        <OrderHistory />
+        </div>
       </nav>
       <article className={s["pk-layout__app"]}>
         <Kanban />

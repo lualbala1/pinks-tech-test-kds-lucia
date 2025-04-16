@@ -13,6 +13,7 @@ export type OrdersContextProps = {
   orders: Array<Order>;
   pickup: (orderId: string) => void;
   moveNextState: (order: Order) => void;
+  deliveredOrders: Array<Order>;
 };
 
 export const OrdersContext = createContext<OrdersContextProps>(
@@ -26,7 +27,7 @@ export type OrdersProviderProps = {
 
 export function OrdersProvider(props: OrdersProviderProps) {
   const [orders, setOrders] = useState<Array<Order>>([]);
-
+  const [deliveredOrders, setDeliveredOrders] = useState<Array<Order>>([]);
   useEffect(() => {
     const orderOrchestrator = new OrderOrchestrator();
     const listener = orderOrchestrator.run();
@@ -60,23 +61,29 @@ export function OrdersProvider(props: OrdersProviderProps) {
   };
 
   const pickup = (orderId: string) => {
-    console.log("pickup", orderId);
     setOrders((prev) => {
       const newOrders = [...prev];
       const index = newOrders.findIndex((o) => o.id === orderId);
       if (index === -1) return newOrders;
-      newOrders[index].state = ORDER_STATE_DELIVERED;
+      const updatedOrder = { ...newOrders[index] };
+      updatedOrder.state = "DELIVERED";
+      setDeliveredOrders((prevDelivered) => [...prevDelivered, updatedOrder]);
+
+      newOrders.slice(index, 1);
       return newOrders;
     });
+    console.log('orders', orders );
+
     setTimeout(() => {
-      setOrders((prev) => prev.filter((o) => o.id !== orderId));
-    }, 2000);
+    setOrders((prev) => prev.filter((o) => o.id !== orderId));
+    }, 500);
   };
 
   const context = {
     orders,
     pickup,
     moveNextState,
+    deliveredOrders,
   };
 
   return (

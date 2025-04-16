@@ -4,6 +4,7 @@
     width: 250px;
     height: 40px;
     border-radius: 12px;
+    border: none;
     font-weight: 600;
     margin-right: 20px;
 
@@ -11,8 +12,4 @@
         cursor: pointer;
         background-color: $gray-900;
     }
-}
-
-.pk-modal-container {
-    
 }

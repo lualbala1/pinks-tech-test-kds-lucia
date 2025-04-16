@@ -20,7 +20,10 @@ export type OrderProps = {
 export default function OrderCard(props: OrderProps) {
   const { moveNextState } = useOrders();
   const [showOrderDetails, setShowOrderDetails] = useState<boolean>(false);
-
+  const { deliveredOrders } = useOrders();
+  const isDelivered = deliveredOrders.some(
+    (deliveredOrder) => deliveredOrder.id === props.order.id
+  );
   useEffect(() => {
     setShowOrderDetails(false);
   }, [props.order]);
@@ -90,6 +93,8 @@ export default function OrderCard(props: OrderProps) {
       <div className={s["pk-order-card__items"]}>
         <p>{props.order.items.length} items</p>
         <p>{props.order.estimatedtime} min</p>
+
+        {isDelivered && <p>{new Date(props.order.date).toDateString()}</p>}
       </div>
       <div className={s["pk-order-card__buttons"]}>
         {renderButtonOptions(props.order.state)}

@@ -25,16 +25,8 @@ export const modalStyle = {
 };
 export default function StoreSelector() {
   const [showStoreSelector, setShowStoreSelector] = useState<boolean>(false);
-  /*
-  const [selectedStore, setSelectedStore] = useState<StoreDto>(() => {
-    const store = localStorage.getItem("selectedStore");
-    return store ? JSON.parse(store) : mockStores[0];
-  });*/
   const { selectedStore, setSelectedStore } = useStore();
-  /*
-  useEffect(() => {
-    localStorage.setItem("selectedStore", JSON.stringify(selectedStore));
-  }, [selectedStore]);*/
+
   return (
     <>
       <button
@@ -62,10 +54,10 @@ export default function StoreSelector() {
               );
               setShowStoreSelector(false);
             }}
-            label="Tienda"
+            className={s["pk-store-selector__select"]}
           >
             {mockStores.map((store) => (
-              <MenuItem key={store.id} value={store.id}>
+              <MenuItem key={store.id} value={store.id} className={s["pk-store-selector__select__item"]}>
                 {store.name}
               </MenuItem>
             ))}

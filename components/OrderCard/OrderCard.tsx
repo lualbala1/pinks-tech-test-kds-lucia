@@ -20,7 +20,7 @@ export type OrderProps = {
 export default function OrderCard(props: OrderProps) {
   const { moveNextState } = useOrders();
   const [showOrderDetails, setShowOrderDetails] = useState<boolean>(false);
-  
+
   useEffect(() => {
     setShowOrderDetails(false);
   }, [props.order]);
@@ -30,7 +30,7 @@ export default function OrderCard(props: OrderProps) {
       case ORDER_STATE_PENDING:
         return (
           <button
-            className={`${s["pk-order-card__buttons"]} ${s["pending"]}`}
+            className={`${s["pk-order-card__buttons"]}`}
             onClick={() => moveNextState(props.order)}
           >
             Empezar
@@ -38,17 +38,13 @@ export default function OrderCard(props: OrderProps) {
         );
       case ORDER_STATE_IN_PROGRESS:
         return (
-          <div className={`${s["pk-order-card__buttons"]} ${s["in-progress"]}`}>
-            <button className={s["pk-card__buttons"]}>
-              {<FaRegQuestionCircle />}
-            </button>
-            <button
-              style={{ fontSize: "1rem" }}
-              onClick={() => moveNextState(props.order)}
-            >
-              Listo {<FaRegCheckCircle />}
-            </button>
-          </div>
+          <button
+            style={{ fontSize: "1rem" }}
+            onClick={() => moveNextState(props.order)}
+            className={s["pk-order-card__buttons"]}
+          >
+            Listo ✅
+          </button>
         );
       case ORDER_STATE_READY:
         return (

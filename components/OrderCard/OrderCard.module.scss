@@ -17,23 +17,16 @@
     margin-top: 10px;
     width: 100%;
     min-width: 110px;
-
-    &.pending {
-      height: 30px;
-      border-radius: 8px;
-
-      font-weight: 600;
-    }
-
-    &.in-progress {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      & > button {
-        width: 50%;
-        height: 30px;
-        border-radius: 8px;
-      }
+    height: 30px;
+    border-radius: 8px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+    
+    &.ready {
+      justify-content: flex-start;
     }
   }
 

@@ -50,12 +50,16 @@
   &__order {
     position: absolute;
     top: -5px;
-    right: 15px;
+    right: 50px;
     opacity: 0;
     border-radius: $border-radius-ml $border-radius-ml $border-radius-ml 0px;
     background-color: #f9cc01;
     padding: 10px;
     animation: appear 300ms 1000ms forwards;
+
+    @media (max-width: $breakpoint-l) {
+      right: 0px;
+    }
 
     @media (max-width: $breakpoint-md) {
       top: -5px;

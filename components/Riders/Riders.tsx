@@ -10,6 +10,8 @@ export default function Riders() {
   const { riders } = useRiders();
   const { selectedStore } = useStore();
   const [filteredRiders, setFilteredRiders] = useState<RiderDto[]>([]);
+  
+  // Filter riders based on the selected store
   useEffect(() => {
     setFilteredRiders(
       riders.filter((rider) => {

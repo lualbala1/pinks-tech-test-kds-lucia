@@ -42,7 +42,7 @@ export default function StoreSelector() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
-          <h2>Selecciona una tienda</h2>
+          <h2>Selecciona un restaurante</h2>
           <Select
             id="store-selector"
             value={selectedStore?.id}

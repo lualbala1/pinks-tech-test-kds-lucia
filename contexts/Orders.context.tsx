@@ -36,6 +36,8 @@ export function OrdersProvider(props: OrdersProviderProps) {
     });
   }, []);
 
+  // Change order state to next one
+  // PENDING -> IN_PROGRESS -> READY -> DELIVERED
   const moveNextState = (order: Order) => {
     setOrders((prev) => {
       const index = prev.findIndex((o) => o.id === order.id);
@@ -60,6 +62,8 @@ export function OrdersProvider(props: OrdersProviderProps) {
     });
   };
 
+  // Confirm the order pickup
+  // Move the order to the delivered orders list
   const pickup = (orderId: string) => {
     setOrders((prev) => {
       const newOrders = [...prev];
